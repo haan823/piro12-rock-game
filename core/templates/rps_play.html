@@ -1,0 +1,18 @@
+
+<p>공격자: {{ user }}</p>
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for="defender">Defender</label>
+    <select name="defender" id="defender">
+        {% for user in users %}
+           <option value="{{ user.id }}">{{ user }}</option>
+        {% endfor %}
+    </select>
+    <label for="atk_choice">Attacker choice</label>
+    <select name="atk_choice" id="atk_choice">
+        <option value="Scissors">가위</option>
+        <option value="Rock">바위</option>
+        <option value="Paper">보</option>
+    </select>
+    <input type="submit">
+</form>

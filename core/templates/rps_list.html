@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2 style="color: white">전적 페이지</h2>
+    {% for game in games %}
+        {% if game.atk_user.id == user.pk or game.dfn_user.id == user.pk %}
+            <div style="color: white;"class="game-control">
+                <div class="game-player">
+                    {{ game.atk_user }} vs {{ game.dfn_user }}
+                </div>
+                <div class="game-result">
+                    결과: {{ game.result }}
+                </div>
+                <button type="button">
+                    게임 결과
+                </button>
+            </div>
+        {% endif %}
+
+    {% endfor %}
+
+{% endblock %}
