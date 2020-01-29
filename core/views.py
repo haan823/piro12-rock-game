@@ -1,9 +1,9 @@
 from random import choice
-
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from core.models import Game, User
+from core.models import Game
 
 CHOICE = ['Rock', 'Paper', 'Scissors']
 
@@ -30,14 +30,56 @@ def play_user(request, pk):
         )
         return redirect(reverse('rps_list'))
     elif request.method == 'GET':
-        users = User.objects.all().exclude(name=request.user)
-        user = User.objects.get(pk=pk),
+        users = User.objects.all().exclude(username=request.user)
+        user = User.objects.get(pk=pk)
         data = {
             'user': user,
             'users': users,
         }
         return render(request, 'rps_play.html', data)
 
+def rps_compete(request, pk):
+    if request.method == 'POST':
+        dfn_choice = request.POST.get('dfn_choice', None)
+        game = Game.objects.get(pk=pk)
 
-def play_computer(request):
-    pass
+        if game.atk_choice == 'Rock':
+            if dfn_choice == 'Paper':
+                result = str(game.dfn_user) + " Win"
+            elif dfn_choice == 'Scissors':
+                result = str(game.atk_user) + " Win"
+            elif dfn_choice == 'Rock':
+                result = "Tie"
+
+        elif game.atk_choice == 'Scissors':
+            if dfn_choice == 'Rock':
+                result = str(game.dfn_user) + " Win"
+            elif dfn_choice == 'Paper':
+                result = str(game.atk_user) + " Win"
+            elif dfn_choice == 'Scissors':
+                result = "Tie"
+
+        elif game.atk_choice == 'Paper':
+            if dfn_choice == 'Scissors':
+                result = str(game.dfn_user) + " Win"
+            elif dfn_choice == 'Rock':
+                result = str(game.atk_user) + " Win"
+            elif dfn_choice == 'Paper':
+                result = "Tie"
+        Game.objects.filter(pk=pk).update(dfs_choice=dfn_choice, result=result)
+        return redirect(reverse('rps_list'))
+
+    elif request.method == 'GET':
+        users = User.objects.all().exclude(username=request.user)
+        data = {
+            'users': users,
+        }
+        return render(request, 'rps_compete.html', data)
+
+
+def rps_detail(request, pk):
+    game = Game.objects.get(pk=pk)
+    data={
+        'game': game
+    }
+    return render(request, 'rps_detail.html', data)

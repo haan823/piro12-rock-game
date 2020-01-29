@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="color: white;">
+        <p>Attacker: {{ game.atk_user }}</p>
+        <p>Defender: {{ game.dfn_user }}</p>
+        <p>Attacker's Choice: {{ game.atk_choice }}</p>
+        <p>Defender's Choice: {{ game.dfs_choice }}</p>
+        <p>Result: {{ game.result }}</p>
+    </div>
+{% endblock %}

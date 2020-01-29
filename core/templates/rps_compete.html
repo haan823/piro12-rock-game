@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for="dfn_choice">Defender choice</label>
+    <select name="dfn_choice" id="dfn_choice">
+        <option value="Scissors">가위</option>
+        <option value="Rock">바위</option>
+        <option value="Paper">보</option>
+    </select>
+    <input type="submit">
+</form>
+{% endblock %}

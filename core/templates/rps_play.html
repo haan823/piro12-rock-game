@@ -1,5 +1,8 @@
+{% extends "base.html" %}
 
-<p>공격자: {{ user }}</p>
+{% block content %}
+<div style="color: white;">
+<p>공격자: {{ user.username }}</p>
 <form action="" method="POST">
     {% csrf_token %}
     <label for="defender">Defender</label>
@@ -16,3 +19,7 @@
     </select>
     <input type="submit">
 </form>
+</div>
+
+
+{% endblock %}

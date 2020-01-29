@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 
 GAME_CHOICES = (
@@ -7,12 +8,6 @@ GAME_CHOICES = (
     ("Scissors", "Scissors"),
     ("Paper", "Paper"),
 )
-
-class User(models.Model):
-    name = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.name)
 
 class Game(models.Model):
     atk_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attacker')

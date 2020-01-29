@@ -10,11 +10,19 @@
                     {{ game.atk_user }} vs {{ game.dfn_user }}
                 </div>
                 <div class="game-result">
+                {% if game.atk_choice and game.dfs_choice %}
                     결과: {{ game.result }}
+                {% else %}
+                    {% if game.atk_user.id == user.id %}
+                        결과: {{ game.result }}
+                    {% elif game.dfn_user.id == user.id %}
+                        <a href="{% url 'rps_compete' game.pk %}">대응하기</a>
+                    {% endif %}
+                {% endif %}
                 </div>
-                <button type="button">
+                <a href="{% url 'rps_detail' game.pk %}" type="button">
                     게임 결과
-                </button>
+                </a>
             </div>
         {% endif %}
 

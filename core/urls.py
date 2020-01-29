@@ -1,9 +1,11 @@
 from django.urls import path
 
 from . import views
-from .views import play_user, rps_list
+from .views import *
 
 urlpatterns =[
     path('list/', rps_list, name='rps_list'),
-    path('play_user/<int:pk>', play_user, name='play-user')
+    path('play_user/<int:pk>', play_user, name='play-user'),
+    path('play_user/compete/<int:pk>', rps_compete, name='rps_compete'),
+    path('play_user/<int:pk>/rps_detail', rps_detail, name='rps_detail'),
 ]
